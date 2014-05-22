@@ -44,7 +44,7 @@
 
 
     <target name="make.jdtcore.jar">
-    	<property name="aj" value="/Users/aclement/gits/org.aspectj/org.eclipse.jdt.core"/>
+    	<property name="aj" value="C:/src/org.aspectj/org.eclipse.jdt.core"/>
     	<delete file="${aj}/jdtcore-for-aspectj.jar"/>
         <jar destfile="${aj}/jdtcore-for-aspectj.jar">
             <fileset dir="bin"/>
@@ -122,25 +122,26 @@
 	
     <target name="transformOneFolderToAJ" description="For source folder named in 'srcfolder' param, renames refs to org.aspectj.org.eclipse.jdt">
 	    <delete dir="src-temp" />
+        <mkdir dir="src-temp"/>
 		  	
 		<echo message="Copying '${srcfolder}' to 'src-temp' and modifying file names to include aspectj"/>
 		
     	<!-- if the files don't match org.eclipse they won't be looked copied -->
 		<copy toDir="src-temp">
 		   <fileset dir="${srcfolder}"/>
-			<mapper type="regexp" from="^(.*)org/eclipse/jdt(.*)$" to="\1org/aspectj/org/eclipse/jdt\2"/>
-			<!-- win
+			<!-- <mapper type="regexp" from="^(.*)org/eclipse/jdt(.*)$" to="\1org/aspectj/org/eclipse/jdt\2"/> -->
+			 
 		   <mapper type="regexp" from="^(.*)org\\eclipse\\jdt(.*)$" to="\1org\\aspectj\\org\\eclipse\\jdt\2"/>
-		   	-->
+		   	
 		</copy>
     	
     	<!-- Copy across other stuff as is.. -->
 		<copy toDir="src-temp">
 		   <fileset dir="${srcfolder}"/>
-			<mapper type="regexp" from="^(.*)org/aspectj/ajdt(.*)$" to="\1org/aspectj/ajdt\2"/>
-			<!-- win
+			<!-- <mapper type="regexp" from="^(.*)org/aspectj/ajdt(.*)$" to="\1org/aspectj/ajdt\2"/> -->
+			 <!-- win -->
 		    <mapper type="regexp" from="^(.*)org\\aspectj\\ajdt(.*)$" to="\1org\\aspectj\\ajdt\2"/>
-			-->
+			
 		</copy>
 		  	  	
 	  	<echo message="Modifying file contents to change refs from 'org.eclipse.jdt' to 'org.aspectj.org.eclipse.jdt'"/>
