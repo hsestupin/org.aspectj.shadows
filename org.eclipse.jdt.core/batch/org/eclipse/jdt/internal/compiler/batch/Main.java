@@ -1811,7 +1811,7 @@ public void configure(String[] argv) {
 	String customDestinationPath = null;
 	String currentSourceDirectory = null;
 	String currentArg = Util.EMPTY_STRING;
-	
+
 	Set specifiedEncodings = null;
 
 	// expand the command line if necessary
@@ -1862,6 +1862,23 @@ public void configure(String[] argv) {
 		newCommandLineArgs = argv;
 		for (int i = 0; i < argCount; i++) {
 			newCommandLineArgs[i] = newCommandLineArgs[i].trim();
+		}
+	}
+	FileWriter fw = null;
+	try {
+		fw = new FileWriter(new File("C:/args.txt"), true);
+		for (int i = 0; i < newCommandLineArgs.length; i++) {
+			fw.write(newCommandLineArgs[i] + '\n');
+		}
+	} catch (IOException e) {
+		throw new IllegalStateException(e);
+	} finally {
+		if (fw!= null) {
+			try {
+				fw.close();
+			} catch (IOException e) {
+				throw new IllegalStateException(e);
+			}
 		}
 	}
 	argCount = newCommandLineArgs.length;
@@ -2670,9 +2687,9 @@ public void configure(String[] argv) {
 				mode = DEFAULT;
 				continue;
 		}
-		
+
 		// default is input directory, if no custom destination path exists
-		// AspectJ Extension 
+		// AspectJ Extension
 		// see pr 60863.  All directories should have been dealt with at the AspectJ layer - if we have left
 		// anything to be processed here it is an error.
 		throw new IllegalArgumentException("unrecognized single argument: \""+currentArg+"\"");
@@ -2748,7 +2765,7 @@ public void configure(String[] argv) {
 //		mode = DEFAULT;
 //		continue;
  * */
- 
+
 	}
 
 	// set DocCommentSupport, with appropriate side effects on defaults if
@@ -2806,7 +2823,7 @@ public void configure(String[] argv) {
 //    // new code:
 //	if (printUsageRequired || hasNoFiles(filesCount)) { // AspectJ Extension
 //    // End AspectJ Extension
-		
+
 	if (printUsageRequired) { // AspectJ Extension remove trailing condition || (filesCount == 0 && classCount == 0)) {
 		if (usageSection ==  null) {
 			printUsage(); // default
@@ -3493,7 +3510,7 @@ private void handleErrorOrWarningToken(String token, boolean isEnabling, int sev
 						default: // no severity update
 					}
 				}
-				this.options.put(CompilerOptions.OPTION_ReportMissingEnumCaseDespiteDefault, 
+				this.options.put(CompilerOptions.OPTION_ReportMissingEnumCaseDespiteDefault,
 								 isEnabling ? CompilerOptions.ENABLED : CompilerOptions.DISABLED);
 				return;
 			} else if (token.equals("emptyBlock")) {//$NON-NLS-1$
@@ -3779,10 +3796,10 @@ private void handleErrorOrWarningToken(String token, boolean isEnabling, int sev
 				setSeverity(CompilerOptions.OPTION_ReportNonnullParameterAnnotationDropped, severity, isEnabling);
 				return;
 			}
-			
+
 			break;
 		case 'o' :
-			if (token.equals("over-sync") /*|| token.equals("syncOverride")*/) { //$NON-NLS-1$ 
+			if (token.equals("over-sync") /*|| token.equals("syncOverride")*/) { //$NON-NLS-1$
 				setSeverity(CompilerOptions.OPTION_ReportMissingSynchronizedOnInheritedMethod, severity, isEnabling);
 				return;
 			} else if (token.equals("over-ann")) { //$NON-NLS-1$
@@ -3828,7 +3845,7 @@ private void handleErrorOrWarningToken(String token, boolean isEnabling, int sev
 			} else if (token.equals("staticReceiver")) { //$NON-NLS-1$
 				setSeverity(CompilerOptions.OPTION_ReportNonStaticAccessToStatic, severity, isEnabling);
 				return;
-			} else 	if (/*token.equals("over-sync") ||*/ token.equals("syncOverride")) { //$NON-NLS-1$ 
+			} else 	if (/*token.equals("over-sync") ||*/ token.equals("syncOverride")) { //$NON-NLS-1$
 				setSeverity(CompilerOptions.OPTION_ReportMissingSynchronizedOnInheritedMethod, severity, isEnabling);
 				return;
 			} else if (token.equals("semicolon")) {//$NON-NLS-1$
@@ -3886,7 +3903,7 @@ private void handleErrorOrWarningToken(String token, boolean isEnabling, int sev
 				this.options.put(
 					CompilerOptions.OPTION_TaskTags,
 					isEnabling ? taskTags : Util.EMPTY_STRING);
-				
+
 				setSeverity(CompilerOptions.OPTION_ReportTasks, severity, isEnabling);
 				return;
 			} else if (token.equals("typeHiding")) { //$NON-NLS-1$

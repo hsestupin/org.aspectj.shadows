@@ -1,9 +1,11 @@
 <project name="ShadowJdtCore" basedir="." default="make.jdtcore.jar">
     
 	<property name="eclipse.home" value="/Users/aclement/eclipses/e432/eclipse"/>
+    <!--<property name="eclipse.home" value="C:\downloads\eclipse-SDK-4.3.2-win32-x86_64\eclipse"/>-->
     <property name="plugins.dir" value="${eclipse.home}/plugins"/>
     <property name="plugins.src.dir" value="${plugins.dir}/org.eclipse.platform.source_${eclipse.version}/src"/>
     <property name="aspectjtools.jar" value=""/>
+    <!--<property name="aspectjtools.jar" value="C:/src/org.aspectj/lib/aspectj/lib/aspectjtools.jar"/>-->
 
 	<!-- build the jdtDepends.jar and jdtDepends-src.zip files -->
     <target name="makeJdtDepends">
@@ -66,7 +68,8 @@
             <fileset dir="model"/>
             <fileset dir="search"/>
         	<fileset dir="aspectj"/>
-        </jar> 
+        	<fileset dir="apt"/>
+        </jar>
     	<!--
         <jar destfile="../org.eclipse.jdt.core/jdtcore-for-aspectj-src.zip" update="true">
             <zipfileset src="lib/jdtDepends-src.zip" excludes="org/apache/**,org/w3c/**,org/xml/**,org/eclipse/jface/**,org/eclipse/text/**,org/eclipse/osgi/**"/>
@@ -104,6 +107,7 @@
 		<antcall target="transformOneFolderToAJ"><param name="srcfolder" value="model"/></antcall>
 		<antcall target="transformOneFolderToAJ"><param name="srcfolder" value="search"/></antcall>
 		<antcall target="transformOneFolderToAJ"><param name="srcfolder" value="aspectj"/></antcall>
+		<antcall target="transformOneFolderToAJ"><param name="srcfolder" value="apt"/></antcall>
 	</target>
 	
 	<target name="transformProjectFromORGASPECTJ"
@@ -117,7 +121,8 @@
 		<antcall target="transformOneFolderFromAJ"><param name="srcfolder" value="formatter"/></antcall>
 		<antcall target="transformOneFolderFromAJ"><param name="srcfolder" value="model"/></antcall>
 		<antcall target="transformOneFolderFromAJ"><param name="srcfolder" value="search"/></antcall>	
-		<antcall target="transformOneFolderFromAJ"><param name="srcfolder" value="aspectj"/></antcall>	
+		<antcall target="transformOneFolderFromAJ"><param name="srcfolder" value="aspectj"/></antcall>
+        <antcall target="transformOneFolderFromAJ"><param name="srcfolder" value="apt"/></antcall>
 	</target>
 	
     <target name="transformOneFolderToAJ" description="For source folder named in 'srcfolder' param, renames refs to org.aspectj.org.eclipse.jdt">
