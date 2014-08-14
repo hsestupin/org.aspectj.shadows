@@ -44,16 +44,19 @@ public class HookedJavaFileObject extends
 		}
 		@Override
 		public Writer append(char c) throws IOException {
-			return _w.append(c);
+			_w.append(c);
+      return this;
 		}
 		@Override
 		public Writer append(CharSequence csq, int start, int end)
 				throws IOException {
-			return _w.append(csq, start, end);
+			_w.append(csq, start, end);
+      return this;
 		}
 		@Override
 		public Writer append(CharSequence csq) throws IOException {
-			return _w.append(csq);
+			_w.append(csq);
+      return this;
 		}
 		// This is the only interesting method - it has to notify the
 		// dispatch manager of the new file.
