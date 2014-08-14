@@ -153,19 +153,22 @@ public final class AjBatchFilerImpl extends BatchFilerImpl {
 
             @Override
             public Writer append(CharSequence csq) throws IOException {
-                return writer.append(csq);
+                writer.append(csq);
+                return this;
             }
 
 
             @Override
             public Writer append(CharSequence csq, int start, int end) throws IOException {
-                return writer.append(csq, start, end);
+                writer.append(csq, start, end);
+                return this;
             }
 
 
             @Override
             public Writer append(char c) throws IOException {
-                return writer.append(c);
+                writer.append(c);
+                return this;
             }
         }
 
